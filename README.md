@@ -1,4 +1,3 @@
-15
 ![image](https://res.cloudinary.com/db670bhmc/image/upload/v1707140978/tsmkrk57gr2zekgksrlt.png)
 
 # BlitzAI: Next-Gen AI Video Creation SaaS
@@ -125,9 +124,6 @@ Explore the dynamic features of BlitzAI through the sidebar, experiment with AI-
 
 ## Contributors
 
-- [Mihir Panchal](https://github.com/MihirRajeshPanchal)
-- [Arnav Deo](https://github.com/arnitdo)
-- [Prinkal Doshi](https://github.com/prinkaldoshi27)
 - [Varad Prabhu](https://github.com/vaxad)
 
 ## License
