@@ -7,13 +7,13 @@ from flask_cors import CORS
 import re
 import os
 import tempfile
-from roboflow import Roboflow
-import supervision as sv
+from roboflow import Roboflow # type: ignore
+import supervision as sv # type: ignore
 import cv2
 import numpy as np
-from reportlab.pdfgen import canvas
-from dotenv import load_dotenv
-from openai import OpenAI
+from reportlab.pdfgen import canvas # type: ignore
+from dotenv import load_dotenv # type: ignore
+from openai import OpenAI # type: ignore
 from pathlib import Path
 from ttsvoice import tts
 from gtts import gTTS
@@ -101,7 +101,7 @@ def ocr():
         image_file = request.files['image']
         image_file.save("temp_image.jpg")
         img = PIL.Image.open('temp_image.jpg')
-        model = genai.GenerativeModel('gemini-pro-vision')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         result = model.generate_content([img,"Extract all the text from the image"],stream=True)
         result.resolve()
         os.remove("temp_image.jpg")
@@ -172,7 +172,7 @@ def imagecaptioning():
         image_file = request.files['image']
         image_file.save("temp_image.jpg")
         img = PIL.Image.open('temp_image.jpg')
-        model = genai.GenerativeModel('gemini-pro-vision')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         result = model.generate_content([img,"Give a short description of what is happening in the image"],stream=True)
         result.resolve()
         os.remove("temp_image.jpg")
@@ -306,16 +306,12 @@ def generateThumbnailfromDescription():
 @app.route('/tts', methods=["POST"])
 def tts_api():
     try:
-        output_folder = "output_folder"  
-        if not os.path.exists(output_folder):
-            os.makedirs(output_folder)
         text = request.form['text']
         voice = request.form['voice']
         tempo = request.form['tempo']
         engine = gTTS(text=text, lang='en', slow=(tempo == "low"))
-        audio_file_path = os.path.join(output_folder, 'output.mp3')
-        engine.save(audio_file_path)
-        return send_from_directory(output_folder, 'output.mp3', as_attachment=True)
+        engine.save(r'output\output.mp3')
+        return send_from_directory('output', 'output.mp3', as_attachment=True)
     except Exception as e:
         return jsonify({"error": str(e)}), 500 
 
