@@ -5,6 +5,7 @@ import Navbar from "@/components/custom-ui/Navbar";
 import { Toaster } from "@/components/ui/sonner"
 import AuthChecker from "@/components/custom-ui/AuthChecker";
 import { Suspense } from "react";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,16 +23,17 @@ export default function RootLayout({ children }) {
 					attribute="class"
 					defaultTheme="system"
 					enableSystem
-					disableTransitionOnChange
-				><Navbar>
-					</Navbar>
+					disableTransitionOnChange>
+					<Navbar />
 					<div className=" ml-64 mt-20">
 						<Suspense>
 							{children}
 						</Suspense>
 						<Toaster />
 					</div>
-				</ThemeProvider></body>
+				</ThemeProvider>
+			</body>
+			<GoogleAnalytics gaId="G-NV93ESXKSC" />
 		</html>
 	);
 }
