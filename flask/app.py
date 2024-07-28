@@ -95,6 +95,11 @@ def generate_pdf_content(values):
     return pdf_content
 
 #Routes
+
+@app.route('/health-check', methods=['GET'])
+def health_check():
+    return jsonify({'status': 'ok'})
+
 @app.route('/ocr', methods=['POST'])
 def ocr():
     try:
