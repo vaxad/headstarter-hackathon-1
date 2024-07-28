@@ -29,9 +29,9 @@ export default function AuthChecker() {
 
 		}
 		const t = localStorage.getItem("auth-token")
-		console.log(t)
+		//(t)
 		if (t) {
-			console.log("hii")
+			//("hii")
 			if (location.includes("auth")) {
 				navigate.push("/dashboard")
 			}

@@ -19,5 +19,5 @@ app.get('/', async (req, res) => {
 })
 
 app.listen(process.env.PORT || 8080, () => {
-	console.log(`Example app listening on port ${process.env.PORT || 8080}`)
+	//(`Example app listening on port ${process.env.PORT || 8080}`)
 })

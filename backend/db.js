@@ -4,10 +4,10 @@ const connectToMongo = async () => {
     try {
         const mongoURI = process.env.MONGO_URI;
         const con = await mongoose.connect(mongoURI);
-        console.log("Mongo connected");
+        //("Mongo connected");
     }
     catch (error) {
-        console.log(error);
+        //(error);
         process.exit();
     }
 }

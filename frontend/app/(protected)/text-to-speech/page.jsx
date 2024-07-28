@@ -48,15 +48,15 @@ export default function NewProject() {
 		formData.append("text", projectTitle)
 		formData.append("voice", voice)
 		formData.append("tempo", tempo)
-		console.log(formData)
+		//(formData)
 		const res = await fetch(`${process.env.NEXT_PUBLIC_FLASK_URL}/tts`, {
 			method: "POST",
 			redirect: 'follow',
 			body: formData
 		})
-		console.log(res)
+		//(res)
 		const data = await res.blob()
-		console.log(data)
+		//(data)
 		setImg(window.URL.createObjectURL(data))
 
 		// if(data.){

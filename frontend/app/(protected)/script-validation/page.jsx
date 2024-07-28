@@ -26,14 +26,14 @@ export default function NewProject() {
 
 		const formData = new FormData()
 		formData.append("text", projectTitle)
-		console.log(formData)
+		//(formData)
 		const res = await fetch(`${process.env.NEXT_PUBLIC_FLASK_URL}/validateMadeforKidsfromSummary`, {
 			method: "POST",
 			redirect: 'follow',
 			body: formData
 		})
 		const data = await res.json()
-		console.log(data)
+		//(data)
 
 		if (data.result) {
 			setImg(JSON.parse(data.result))

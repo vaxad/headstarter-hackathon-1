@@ -1,20 +1,20 @@
 "use client"
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card"
-import {Label} from "@/components/ui/label"
-import {Input} from "@/components/ui/input"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
 import Link from "next/link"
-import {Checkbox} from "@/components/ui/checkbox"
-import {Button} from "@/components/ui/button"
-import {useState} from "react"
-import {toast} from "sonner"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import { toast } from "sonner"
 import store from "@/lib/zustand"
 
-import {useRouter} from "next/navigation"
+import { useRouter } from "next/navigation"
 
 export default function Login() {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
-	const {setAuth} = store()
+	const { setAuth } = store()
 
 	const router = useRouter()
 
@@ -34,11 +34,11 @@ export default function Login() {
 			headers: {
 				"Content-type": "application/json"
 			},
-			body: JSON.stringify({email, password})
+			body: JSON.stringify({ email, password })
 		})
 		const data = await res.json()
 		if (data.error || data.errors) {
-			console.log(data.error)
+			//(data.error)
 			toast(data.error.length > 0 ? data.error : "An error occured")
 		} else {
 			setAuth(true)
@@ -61,7 +61,7 @@ export default function Login() {
 						<Label htmlFor="email">Email</Label>
 						<Input value={email} onChange={(e) => {
 							setEmail(e.target.value)
-						}} id="email" placeholder="Enter your email" required type="email"/>
+						}} id="email" placeholder="Enter your email" required type="email" />
 					</div>
 					<div className="relative space-y-2">
 						<div className="flex items-center">
@@ -72,10 +72,10 @@ export default function Login() {
 						</div>
 						<Input value={password} onChange={(e) => {
 							setPassword(e.target.value)
-						}} id="password" required type="password" placeholder="Enter your password"/>
+						}} id="password" required type="password" placeholder="Enter your password" />
 					</div>
 					<div className="flex items-center">
-						<Checkbox id="remember-me"/>
+						<Checkbox id="remember-me" />
 						<Label className="ml-2" htmlFor="remember-me">
 							Remember me
 						</Label>

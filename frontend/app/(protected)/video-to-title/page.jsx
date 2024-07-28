@@ -83,7 +83,7 @@ export default function VideoToHashtags() {
 
 					if (transcriptTitle.ok) {
 						const { result } = await transcriptTitle.json()
-						console.log(result)
+						//(result)
 						setProjectOutput(result)
 						await updateProject({
 							id: projectId,

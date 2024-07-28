@@ -42,20 +42,20 @@ export default function NewProject() {
     const canvas = canvasRef.current
     const mask = await fetch(canvas.toDataURL('image/png'))
     const m = await mask.blob()
-    console.log(projectTitle, ogimg, mask)
+    //(projectTitle, ogimg, mask)
     const oimg = await fetch(ogimg)
     const i = await oimg.blob()
     formData.append("prompt", projectTitle)
     formData.append("image", i, "image.png")
     formData.append("mask", m, "mask.png")
-    console.log(formData)
+    //(formData)
     const res = await fetch(`${process.env.NEXT_PUBLIC_FLASK_URL}/editImagewithPrompt`, {
       method: "POST",
       redirect: 'follow',
       body: formData
     })
     const data = await res.json()
-    console.log(data)
+    //(data)
 
     if (data.result_url) {
       setImg(data.result_url)
@@ -70,7 +70,7 @@ export default function NewProject() {
     try {
 
       var imageUrl = img
-      console.log("download started")
+      //("download started")
       // var xhr = new XMLHttpRequest();
       // xhr.open('GET', imageUrl, true);
       // xhr.responseType = 'blob';
@@ -99,7 +99,7 @@ export default function NewProject() {
     const reader = new FileReader();
 
     reader.onload = () => {
-      console.log(reader.result)
+      //(reader.result)
       setImage(reader.result);
       setOgImg(reader.result)
     };

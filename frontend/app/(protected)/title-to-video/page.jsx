@@ -33,14 +33,14 @@ export default function NewProject() {
 
 		const formData = new FormData()
 		formData.append("text", projectTitle)
-		console.log(formData)
+		//(formData)
 		const res = await fetch(`${process.env.NEXT_PUBLIC_FLASK_URL}/generateThumbnailfromDescription`, {
 			method: "POST",
 			redirect: 'follow',
 			body: formData
 		})
 		const data = await res.json()
-		console.log(data)
+		//(data)
 
 		if (data.result_url) {
 			setImg(data.result_url)
@@ -54,7 +54,7 @@ export default function NewProject() {
 		try {
 
 			var imageUrl = img
-			console.log("download started")
+			//("download started")
 			// var xhr = new XMLHttpRequest();
 			// xhr.open('GET', imageUrl, true);
 			// xhr.responseType = 'blob';
