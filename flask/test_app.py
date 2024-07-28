@@ -1,6 +1,5 @@
 import requests
 
-# Set the base URL for your Flask app
 BASE_URL = 'http://127.0.0.1:5000'
 
 video_script = """
@@ -34,6 +33,71 @@ Host: "We hope this video has given you a clear understanding of neural networks
 
 [End Screen with Channel Information]
 """
+video_script_b = """
+Video Script: Showcasing Ocean Waves
+
+[Opening Scene: Wide shot of the ocean]
+
+Visual: A breathtaking wide-angle view of the ocean, with the horizon in the distance and the sun casting a golden glow on the water.
+
+Audio: Gentle sound of waves crashing.
+
+Narrator: "Welcome to the serene beauty of the ocean."
+
+[Scene 2: Close-up of waves]
+
+Visual: Close-up shot of waves gently rolling and crashing onto the shore.
+
+Audio: The soothing rhythm of waves lapping against the sand.
+
+Narrator: "Feel the calming rhythm of the waves as they embrace the shore."
+
+[Scene 3: Mid-shot of waves from a different angle]
+
+Visual: A different angle showing the waves' movement, capturing their power and grace.
+
+Audio: Slightly louder crashing of waves.
+
+Narrator: "Each wave tells a story of nature's timeless dance."
+
+[Scene 4: Slow-motion of a wave crashing]
+
+Visual: Slow-motion capture of a wave cresting and crashing, water droplets sparkling in the sunlight.
+
+Audio: Slow, deep crashing sound.
+
+Narrator: "In the dance of waves, we find a moment of tranquility."
+
+[Closing Scene: Sunset over the ocean]
+
+Visual: The sun setting over the ocean, painting the sky in shades of orange, pink, and purple.
+
+Audio: Soft, fading sound of waves.
+
+Narrator: "Let the waves carry away your worries, leaving only peace."
+
+[Text on Screen]: "Experience the serenity of the ocean."
+
+Audio: Gentle wave sounds fading out.
+
+[Fade to Black]
+
+End of Script
+"""
+
+def test_text2audio():
+    data = {'text': 'a man farts and then people laugh'}
+    response = requests.post(f'{BASE_URL}/text2audio', data=data)
+    with open(r'output\t2a.mp3', 'wb') as f:
+        f.write(response.content)
+    print('Audio output saved to output/t2a.mp3')
+
+def test_script2audio():
+    data = {'script': video_script_b}
+    response = requests.post(f'{BASE_URL}/script2audio', data=data)
+    with open(r'output\s2a.mp3', 'wb') as f:
+        f.write(response.content)
+    print('Audio output saved to output/s2a.mp3')
 
 def test_ocr():
     with open(r'test\testocr.png', 'rb') as image:
@@ -171,28 +235,30 @@ def test_helloworld():
     print(response.json())
 
 if __name__ == '__main__':
-    test_ocr()
-    test_chatbot()
-    # test_yolosegment()
-    test_emotiondetection()
-    test_receiptgeneration()
-    test_imagecaptioning()
-    test_getTranscipt()
-    test_generateAlternateThumbnail()
-    # test_editImagewithPrompt()
-    test_generateImage()
-    test_generateThumbnailfromTitle()
-    test_generateThumbnailfromDescription()
-    test_tts_api()
-    test_createSummaryFromAudioText()
-    test_createTitlefromDescription()
-    test_createScriptfromDescription()
-    test_createDescriptionfromTitle()
-    test_generateScriptfromTitle()
-    test_createHashTagsfromDescription()
-    test_validateMadeforKidsfromSummary()
-    test_createDescriptionfromScript()
-    test_createHashTagsfromScript()
-    test_createTitlefromScript()
-    test_generateThumbnailfromScript()
-    test_helloworld()
+    # test_text2audio()
+    test_script2audio()
+    # test_ocr()
+    # test_chatbot()
+    # # test_yolosegment()
+    # test_emotiondetection()
+    # test_receiptgeneration()
+    # test_imagecaptioning()
+    # test_getTranscipt()
+    # test_generateAlternateThumbnail()
+    # # test_editImagewithPrompt()
+    # test_generateImage()
+    # test_generateThumbnailfromTitle()
+    # test_generateThumbnailfromDescription()
+    # test_tts_api()
+    # test_createSummaryFromAudioText()
+    # test_createTitlefromDescription()
+    # test_createScriptfromDescription()
+    # test_createDescriptionfromTitle()
+    # test_generateScriptfromTitle()
+    # test_createHashTagsfromDescription()
+    # test_validateMadeforKidsfromSummary()
+    # test_createDescriptionfromScript()
+    # test_createHashTagsfromScript()
+    # test_createTitlefromScript()
+    # test_generateThumbnailfromScript()
+    # test_helloworld()

@@ -6,6 +6,8 @@ import PIL
 from flask_cors import CORS
 import re
 import os
+import shutil
+from gradio_client import Client
 import tempfile
 from roboflow import Roboflow # type: ignore
 import supervision as sv # type: ignore
@@ -95,6 +97,47 @@ def generate_pdf_content(values):
     return pdf_content
 
 #Routes
+@app.route('/text2audio', methods=['POST'])
+def text2audio():
+    try:
+        prompt = request.form['text']
+        client = Client("declare-lab/tango2")
+        print(prompt)
+        source = client.predict(
+                prompt=prompt,
+                output_format="mp3",
+                steps=100,
+                guidance=3,
+                api_name="/predict"
+        )
+        destination = r"output\t2a.mp3"
+        shutil.move(source, destination)
+        return send_from_directory('output', 't2a.mp3', as_attachment=True)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500 
+
+@app.route('/script2audio', methods=['POST'])
+def script2audio():
+    try:
+        script = request.form['script']
+        model = genai.GenerativeModel('gemini-1.5-pro')
+        prompt = model.generate_content(f"Generate a short (less than 10 words) prompt to be feed into a prompt to audio model for the following video script: {script}")
+        prompt.resolve()
+        print(prompt.text)
+        client = Client("declare-lab/tango2")
+        source = client.predict(
+                prompt=prompt.text,
+                output_format="mp3",
+                steps=100,
+                guidance=3,
+                api_name="/predict"
+        )
+        destination = r"output\s2a.mp3"
+        shutil.move(source, destination)
+        return send_from_directory('output', 's2a.mp3', as_attachment=True)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500 
+
 @app.route('/ocr', methods=['POST'])
 def ocr():
     try:
