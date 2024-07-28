@@ -1,17 +1,17 @@
 "use client"
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react"
 import Head from "next/head"
 import ProjectModal from "@/app/components/ProjectModal";
-import {useRouter, useSearchParams} from "next/navigation";
-import {Input} from "@/components/ui/input";
-import {getProjectById, getReadonlyURL, manageMedia, updateProject} from "@/lib/utils";
-import {toast} from "sonner"
+import { useRouter, useSearchParams } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { getProjectById, getReadonlyURL, manageMedia, updateProject } from "@/lib/utils";
+import { toast } from "sonner"
 import store from "@/lib/zustand";
 import { Textarea } from "@/components/ui/textarea"
 
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
-export default function VideoToDescriptions() {
+export default function Page() {
 	const [projectId, setProjectId] = useState("")
 	const [projectName, setProjectName] = useState("")
 	const [projectCreated, setProjectCreated] = useState(false)
@@ -22,7 +22,7 @@ export default function VideoToDescriptions() {
 
 	const navigate = useRouter()
 
-	const {auth, user, demoEnv, demoDelayMs} = store()
+	const { auth, user, demoEnv, demoDelayMs } = store()
 
 	const searchParams = useSearchParams()
 
@@ -41,7 +41,7 @@ export default function VideoToDescriptions() {
 						5000
 					)
 				} else {
-					const {_id, name, type, input, inputType, output, outputType} = responseData
+					const { _id, name, type, input, inputType, output, outputType } = responseData
 					setProjectName(name)
 					setProjectId(_id)
 					setVideoURL(input || "")
@@ -93,10 +93,10 @@ export default function VideoToDescriptions() {
 		}
 	}
 	const handleDiscard = () => {
-		setProjectOutput ("")
+		setProjectOutput("")
 	}
 
-	const onProjectCreate = ({projectName, projectType, id}) => {
+	const onProjectCreate = ({ projectName, projectType, id }) => {
 		setProjectCreated(true)
 		setProjectName(projectName)
 		setProjectId(id)
@@ -164,7 +164,7 @@ export default function VideoToDescriptions() {
 							className={"p-8 w-full flex flex-col flex-grow gap-8"}
 						>
 							<h3 className={"font-bold text-3xl"}>{projectName}</h3>
-							<hr/>
+							<hr />
 							<div className={"flex flex-col flex-grow gap-4"}>
 								<label htmlFor={"video-picker"}>
 									Select Video<span className={"text-red-400"}>*</span>
@@ -178,7 +178,7 @@ export default function VideoToDescriptions() {
 								{
 									videoURL ? (
 										<video controls className={"max-h-[30vh]"}>
-											<source src={videoURL}/>
+											<source src={videoURL} />
 											Your browser does not support HTML5 Video
 										</video>
 									) : (
@@ -186,20 +186,20 @@ export default function VideoToDescriptions() {
 									)
 								}
 								<Button type={"submit"}>Generate Description</Button>
-								
+
 							</div>
 						</form>
-						<hr/>
+						<hr />
 						{projectOutput.length ? (
 							<div className={"w-full flex flex-col px-7 gap-4"}>
 								<Textarea value={projectOutput} rows={8} />
-								<hr className="col-span-4"/>
-						<div className=" col-span-4 flex flex-row justify-between w-full items-center">
-							<Button onClick={() => { handleDiscard() }} variant="secondary" className=" w-fit">Discard</Button>
-							{/* <a className="h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90" href={img} download="Varad's Resume">Download</a> */}
-							<Button onClick={(e) => {navigator.clipboard.writeText(projectOutput);toast("Description copied successfully")}}>Copy to
-									Clipboard</Button>
-						</div>
+								<hr className="col-span-4" />
+								<div className=" col-span-4 flex flex-row justify-between w-full items-center">
+									<Button onClick={() => { handleDiscard() }} variant="secondary" className=" w-fit">Discard</Button>
+									{/* <a className="h-10 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90" href={img} download="Varad's Resume">Download</a> */}
+									<Button onClick={(e) => { navigator.clipboard.writeText(projectOutput); toast("Description copied successfully") }}>Copy to
+										Clipboard</Button>
+								</div>
 							</div>
 						) : (
 							null
